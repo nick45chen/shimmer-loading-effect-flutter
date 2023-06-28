@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer_effect/shimmer_effect.dart';
 
 import '../components/card_list_item.dart';
 import '../components/circle_list_item.dart';
@@ -33,7 +34,7 @@ class HomeScreenState extends State<HomeScreen> {
           _buildListItem(),
         ],
       ),
-      floatingActionButton:  FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _restart,
         tooltip: 'Restart',
         child: const Icon(Icons.restart_alt),
@@ -53,19 +54,29 @@ class HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
-          CircleListItem(),
-          SizedBox(width: 16.0),
-          CircleListItem(),
+        children: [
+          _buildCircleItem(),
+          const SizedBox(width: 16.0),
+          _buildCircleItem(),
         ],
       ),
+    );
+  }
+
+  Widget _buildCircleItem() {
+    return ShimmerLoading(
+      isLoading: _isLoading,
+      child: const CircleListItem(),
     );
   }
 
   Widget _buildListItem() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: CardListItem(isLoading: _isLoading),
+      child: ShimmerLoading(
+        isLoading: _isLoading,
+        child: CardListItem(isLoading: _isLoading),
+      ),
     );
   }
 }
