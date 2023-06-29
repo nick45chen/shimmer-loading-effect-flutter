@@ -26,13 +26,16 @@ class HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Shimmer Effect Sample'),
       ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 16.0),
-          _buildTopRowItem(),
-          const SizedBox(height: 16.0),
-          _buildListItem(),
-        ],
+      body: Shimmer(
+        linearGradient: shimmerGradient,
+        child: ListView(
+          children: [
+            const SizedBox(height: 16.0),
+            _buildTopRowItem(),
+            const SizedBox(height: 16.0),
+            _buildListItem(),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _restart,
