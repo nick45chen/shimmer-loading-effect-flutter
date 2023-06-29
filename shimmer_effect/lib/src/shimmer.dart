@@ -35,6 +35,13 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return widget.child ?? const SizedBox();
+  }
+
+  Listenable get shimmerChanges => _shimmerController;
+
   LinearGradient get gradient => LinearGradient(
         colors: widget.linearGradient.colors,
         stops: widget.linearGradient.stops,
@@ -54,11 +61,6 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   }) {
     final shimmerBox = context.findRenderObject() as RenderBox;
     return descendant.localToGlobal(offset, ancestor: shimmerBox);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child ?? const SizedBox();
   }
 }
 
