@@ -1,16 +1,47 @@
 # shimmer_loading_effect
 
-A new Flutter project.
+Here is a shimmer loading effect package with an example. 😎
+
+For detailed instructions, please refer to the [Create a shimmer loading effect](https://docs.flutter.dev/cookbook/effects/shimmer-loading)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+The project architecture is:
 
-A few resources to get you started if this is your first Flutter project:
+* example: sample code showing how to use the `shimmer_effect` package.
+* shimmer_effect: the main loading effect package.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Example
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The example with the shimmer effect package is just like the following:
+
+``` dart
+class _ExampleUiLoadingAnimationState extends State<ExampleUiLoadingAnimation> {
+
+var _isLoading = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Shimmer(  // Provide all children with the same shimmer gradient and control animation
+        linearGradient: _shimmerGradient,
+        child: ListView(
+            // ListView Contents
+            ),
+      ),
+    );
+  }
+}
+
+// Control the loading state to decide whether or not to paint the child.
+Widget _buildListItem() {
+  return ShimmerLoading(
+    isLoading: _isLoading,
+    child: CardListItem(
+      isLoading: _isLoading,
+    ),
+  );
+}
+```
+
+Now, you can see the final animation effect.
