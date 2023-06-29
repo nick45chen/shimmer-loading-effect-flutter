@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer_effect/src/shimmer_gradient.dart';
+import 'package:shimmer_effect/src/shimmer.dart';
 
 class ShimmerLoading extends StatefulWidget {
   const ShimmerLoading({
@@ -22,9 +22,31 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
       return widget.child;
     }
 
+    // Collect ancestor shimmer information.
+    final shimmer = Shimmer.of(context)!;
+    if (!shimmer.isSized) {
+      // The ancestor Shimmer widget isn’t laid
+      // out yet. Return an empty box.
+      return const SizedBox();
+    }
+    final shimmerSize = shimmer.size;
+    final gradient = shimmer.gradient;
+    final offsetWithinShimmer = shimmer.getDescendantOffset(
+      descendant: context.findRenderObject() as RenderBox,
+    );
+
     return ShaderMask(
       blendMode: BlendMode.srcATop,
-      shaderCallback: (bounds) => shimmerGradient.createShader(bounds),
+      shaderCallback: (bounds) {
+        return gradient.createShader(
+          Rect.fromLTWH(
+            -offsetWithinShimmer.dx,
+            -offsetWithinShimmer.dy,
+            shimmerSize.width,
+            shimmerSize.height,
+          ),
+        );
+      },
       child: widget.child,
     );
   }
