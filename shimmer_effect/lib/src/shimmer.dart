@@ -18,7 +18,23 @@ class Shimmer extends StatefulWidget {
   ShimmerState createState() => ShimmerState();
 }
 
-class ShimmerState extends State<Shimmer> {
+class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
+  late AnimationController _shimmerController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _shimmerController = AnimationController.unbounded(vsync: this)
+      ..repeat(min: -0.5, max: 1.5, period: const Duration(milliseconds: 1000));
+  }
+
+  @override
+  void dispose() {
+    _shimmerController.dispose();
+    super.dispose();
+  }
+
   Gradient get gradient => LinearGradient(
         colors: widget.linearGradient.colors,
         stops: widget.linearGradient.stops,
