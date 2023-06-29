@@ -44,4 +44,6 @@ Widget _buildListItem() {
 }
 ```
 
-Now, you can see the final animation effect.
+✨ Now, you can see the final animation effect. ✨
+
+<img src="https://github.com/nick45chen/shimmer-loading-effect-flutter/blob/main/gifs/shimmer_sample.gif" width=300 />
